@@ -1,0 +1,49 @@
+---
+const { title } = Astro.props;
+
+let usuari;
+
+if (Astro.cookies.has("usuari")) {
+  const cookie = Astro.cookies.get("usuari")
+  usuari = cookie.value
+}
+
+
+let idioma;
+
+if (Astro.cookies.has("idioma")) {
+  const cookie = Astro.cookies.get("idioma")
+  idioma = cookie.value
+} else {
+    Astro.cookies.set("idioma", "ca")
+    idioma="ca"
+}
+
+---
+
+    <div class="flex justify-between text-slate-700 border-b border-b-slate-500 p-1 mb-3">
+
+    
+
+        <div class="my-3">
+            <a  href="/catala" class="rounded-lg p-1 mr-2 bg-cover font-bold" style= "background-image: url('https://upload.wikimedia.org/wikipedia/commons/c/ce/Flag_of_Catalonia.svg'); height: 400px">
+                Catala
+            </a>
+            
+
+            <a  href="/castellano" class="rounded-lg p-1 mr-2 bg-cover font-bold" style= "background-image: url('https://s1.eestatic.com/2021/11/02/curiosidades/espana-pueblos/624199499_213629722_1706x960.jpg'); height: 400px">
+                Castellano
+            </a>
+
+        </div>
+
+        <h1 class="text-center text-slate-700 p-2 mb-4 text-5xl font-extrabold">{title}</h1>
+
+    
+        <p class="my-6">{usuari 
+             ? <a href="/logout" class="bg-slate-500 hover:bg-slate-400 p-3 mt-6 rounded-lg text-white">{usuari} (Logout)</a> 
+             : <a href="/login" class="bg-slate-500 p-3 mt-6 rounded-lg text-white">Login</a>
+             }
+             </p>
+       
+    </div>

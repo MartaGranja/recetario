@@ -1,0 +1,56 @@
+---
+import Layout from "../layouts/Layout.astro"
+import ReceptesController from '../classes/ReceptesController';
+import Recepta from "../components/Recepta.astro";
+// Exemple d'ús:
+
+const receptesController = new ReceptesController();
+
+const receptes = await receptesController.getAllReceptes();
+
+let usuari;
+if (Astro.cookies.has("usuari")) {
+  const cookie = Astro.cookies.get("usuari")
+  usuari = cookie.value
+} else {
+  return Astro.redirect('/login')
+}
+
+let userRecipes = receptes.list.filter((receta) => receta.creador === usuari);
+
+
+let idioma;
+if (Astro.cookies.has("idioma")) {
+  const cookie = Astro.cookies.get("idioma")
+  idioma = cookie.value
+} else {
+    Astro.cookies.set("idioma", "ca")
+    idioma="ca"
+}
+
+let pagTitle ="";
+
+if (idioma == "ca") {
+  pagTitle = "Receptari"
+} 
+else if (idioma == "es") {
+  pagTitle = "Recetario"
+} 
+
+
+
+---
+
+<Layout title={pagTitle}>
+	<a class="bg-sky-300 hover:bg-sky-200 rounded p-2" href="/receptes/nova">{idioma=="ca"?"Nova recepta":"Nueva receta"}</a>
+
+  <div class="flex flex-wrap justify-center items-center m-5">
+
+  <br />
+    <div class="gap-4 align-vertical grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 rounded-lg">
+      {userRecipes.map(e => <Recepta dades={e} />)}
+    </div>
+    
+  </div>
+		
+</Layout>

@@ -1,0 +1,25 @@
+---
+const { nom, foto, descripcio, Id, creador } = Astro.props.dades;
+//console.log(descripcio)
+---
+
+
+<div class="border mb-6 w-96 p-8 bg-white rounded-lg">
+
+    <h1 class="text-2xl font-extrabold text-center">{nom}</h1>
+   <br/>
+    <img class="rounded-xl w-2/3 m-auto" src={foto} alt="">
+    <hr class="my-4" />
+    {descripcio?.replace(/\n/g, '*n*').split('*n*').map(e => <p class="text-justify">{e}</p>)}
+    <br />
+    
+    <a class="flex items justify-center bg-red-300 rounded-lg p-2" href={"/receptes/eliminar/"+Id}>Eliminar</a>
+    <br />
+    <a class="flex items justify-center bg-orange-300 rounded-lg p-2" href={"/receptes/modificar/"+Id}>Modificar</a>
+
+    <br />
+    <br />
+
+    <h1 class="flex items justify-center font-light bg-gray-200 w-1/2 p-2 rounded-lg">Creador: {creador}</h1>
+
+</div>

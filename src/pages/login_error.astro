@@ -1,0 +1,30 @@
+---
+import LoginLayout from "../layouts/LoginLayout.astro";
+
+let idioma = Astro.cookies.get("idioma").value;
+
+---
+
+<LoginLayout title="Oops...">
+
+    <br />
+    <br />
+
+        <div class="w-1/2 m-auto">
+            <div class="bg-red-100 border border-red-500 text-red-700 px-4 py-3" role="alert">
+                <p class="font-bold">{idioma === "ca"? "Error de validació" : "Error de validación"}</p>
+                <p class="text-sm">{idioma=== "ca"? "Hi ha hagut un problema amb el login...":"Ha habido un error con el login..."}</p>
+              </div>
+        
+              <br>
+              <br>
+            <a href="/" >
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    {idioma=="ca"?"Torna-ho a provar":"Vuelve a intentarlo"}
+                </button>
+            </a>
+        
+        </div>
+    
+  
+</Layout>

@@ -1,0 +1,70 @@
+---
+import LoginLayout from "../layouts/LoginLayout.astro";
+import Header from "../components/Header.astro";
+import UsuarisController from '../classes/UsuarisController';
+
+
+if (Astro.request.method === "POST") {
+
+    const usuarisController = new UsuarisController();
+    const data = await Astro.request.formData();
+    const nom = data.get("nom");
+    const password = data.get("password");
+   
+    const userOk = await usuarisController.validaUsuari(nom, password);
+
+    if (userOk) {
+        Astro.cookies.set("usuari", nom);
+        return Astro.redirect("/");
+    } else {
+        //console.log("algo falla")
+        return Astro.redirect("/login_error");
+    }
+}
+
+let idioma = Astro.cookies.get("idioma").value;
+
+
+---
+<Header/>
+<LoginLayout>
+<br /> 
+<br />
+
+    <div class="flex flex-col justify-center items-center bg-white rounded-lg p-6 mx-auto w-96">
+
+        <h1 class="text-3xl font-extrabold">{idioma=="ca"?"Inici de sessio":"Inicio de sesion"}</h1>
+        <br/>
+        <form method="post" class="m-auto">
+            <div class="md:flex md:items-start mb-6">
+                
+                <div>
+                    <input
+                        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-80 py-2 px-4 text-gray-700"
+                        name="nom"
+                        placeholder={idioma=="ca"?"usuari":"usuario"}
+                        type="text"
+                    />
+                </div>
+            </div>
+    
+            <div class="md:flex md:items-center mb-6">
+                <div>
+                    <input
+                        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-80 py-2 px-4 text-gray-700"
+                        name="password"
+                        type="password"
+                        placeholder={idioma=="ca"?"contrasenya":"contrasena"}
+                    />
+                </div>
+            </div>
+    
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-auto rounded w-80">
+                    Entrar
+                </button>
+        </form>
+
+    </div>
+
+    
+</LoginLayout>

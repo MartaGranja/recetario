@@ -1,0 +1,18 @@
+---
+import Header from "../components/Header.astro";
+const {title} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+</head>
+<body class="bg-gray-300 px-12"
+ bg-cover style= "background-image: url('https://i.pinimg.com/564x/e5/df/34/e5df3441dd0bc0b2cdbbbb42e0067f8a.jpg'); height: 400px">
+
+    <slot />
+    
+</body>
+</html>
