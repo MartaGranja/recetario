@@ -3,28 +3,29 @@ import LoginLayout from "../layouts/LoginLayout.astro";
 import Header from "../components/Header.astro";
 import UsuarisController from '../classes/UsuarisController';
 
+async function handlePostRequest() {
+    if (Astro.request.method === "POST") {
+        const usuarisController = new UsuarisController();
+        const data = await Astro.request.formData();
+        const nom = data.get("nom");
+        const password = data.get("password");
+       
+        const userOk = await usuarisController.validaUsuari(nom, password);
 
-if (Astro.request.method === "POST") {
-
-    const usuarisController = new UsuarisController();
-    const data = await Astro.request.formData();
-    const nom = data.get("nom");
-    const password = data.get("password");
-   
-    const userOk = await usuarisController.validaUsuari(nom, password);
-
-    if (userOk) {
-        Astro.cookies.set("usuari", nom);
-        return Astro.redirect("/");
-    } else {
-        //console.log("algo falla")
-        return Astro.redirect("/login_error");
+        if (userOk) {
+            Astro.cookies.set("usuari", nom);
+            return Astro.redirect("/");
+        } else {
+            //console.log("algo falla")
+            return Astro.redirect("/login_error");
+        }
     }
 }
 
-let idioma = Astro.cookies.get("idioma").value;
+await handlePostRequest();
 
-
+const idiomaCookie = Astro.cookies.get("idioma");
+let idioma = idiomaCookie ? idiomaCookie.value : "ca";  // Por defecto 'ca' si no existe la cookie
 ---
 <Header/>
 <LoginLayout>

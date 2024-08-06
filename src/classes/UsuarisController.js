@@ -105,35 +105,3 @@ class UsuarisController {
 }
 
 export default UsuarisController;
-
-/*
-// Exemple d'ús:
-const apiUrl = 'https://example.com/api';
-const token = 'el_teu_token_aqui';
-
-const usuarisController = new ReceptesController(apiUrl, token);
-
-// Obté totes les receptes
-receptesController.getAllReceptes().then(data => console.log(data));
-
-// Obté una recepta per ID
-const receptaId = 1;
-receptesController.getRecepteById(receptaId).then(data => console.log(data));
-
-// Crea una nova recepta
-const novaUsuari = {
-    nom: 'Paella',
-    foto: 'paella.jpg',
-    descripcio: 'Una deliciosa paella'
-};
-receptesController.createRecepte(novaUsuari.nom, novaUsuari.foto, novaUsuari.descripcio).then(data => console.log(data));
-
-// Actualitza una recepta existent
-const receptaActualitzada = {
-    id: 1,
-    nom: 'Paella Valenciana',
-    foto: 'paella_valenciana.jpg',
-    descripcio: 'La veritable paella valenciana'
-};
-receptesController.updateRecepte(receptaActualitzada.id, receptaActualitzada.nom, receptaActual
-*/
